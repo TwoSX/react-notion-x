@@ -13,7 +13,6 @@ import 'prismjs/components/prism-json.min.js'
 import 'prismjs/components/prism-jsx.min.js'
 import 'prismjs/components/prism-tsx.min.js'
 import 'prismjs/components/prism-typescript.min.js'
-import mermaid from 'mermaid'
 
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
@@ -55,29 +54,6 @@ export const Code: React.FC<{
       }
     }
   }, [codeRef])
-
-  React.useEffect(() => {
-    const renderMermaid = async () => {
-      try {
-        if (language === 'mermaid') {
-          mermaid.initialize({
-            startOnLoad: true,
-            theme: 'dark',
-            flowchart: {
-              useMaxWidth: false,
-              htmlLabels: true,
-              curve: 'linear'
-            }
-          })
-          await mermaid.run({ querySelector: 'code.language-mermaid' })
-        }
-      } catch (err) {
-        console.warn('mermaid highlight error', err)
-      }
-    }
-
-    renderMermaid()
-  }, [language])
 
   const onClickCopyToClipboard = React.useCallback(() => {
     copyToClipboard(content)
